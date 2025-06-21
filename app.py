@@ -151,13 +151,13 @@ with tab4:
             for skill in missing_skills:
                 pdf.cell(200, 8, txt=f"- {skill}", ln=1)
 
-            pdf_output = pdf.output(dest='S').encode('latin1')
-            buffer = BytesIO(pdf_output)
+            buffer = BytesIO()
+            pdf.output(buffer, 'F')
             buffer.seek(0)
-            return buffer
+            return buffer.read()
 
-        pdf_file = generate_pdf()
-        b64 = base64.b64encode(pdf_file.read()).decode()
+        pdf_data = generate_pdf()
+        b64 = base64.b64encode(pdf_data).decode('utf-8')
         href = f'<a href="data:application/pdf;base64,{b64}" download="skillvault_report.pdf">Download SkillVault Report (PDF)</a>'
         st.markdown(href, unsafe_allow_html=True)
     else:
