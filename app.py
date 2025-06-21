@@ -21,12 +21,14 @@ def load_lottie_url(url):
 # Styling
 st.markdown("""
     <style>
-        body {
+        html, body, [class*="css"] {
             font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            color: #111;
         }
         .title-text {
             text-align: center;
-            color: #2e7d32;
+            color: #1a237e;
             font-size: 36px;
             font-weight: bold;
             margin: 20px 0;
@@ -40,23 +42,24 @@ st.markdown("""
         }
         .skill-card {
             padding: 10px;
-            background-color: #f1f8e9;
-            border-left: 5px solid #558b2f;
+            background-color: #e3f2fd;
+            border-left: 5px solid #1976d2;
             border-radius: 6px;
             margin-bottom: 8px;
         }
         .missing-skill {
-            background-color: #fff3e0;
-            border-left: 5px solid #f57c00;
+            background-color: #ffebee;
+            border-left: 5px solid #d32f2f;
         }
         .metric-card {
-            background-color: #e3f2fd;
+            background-color: #fff3e0;
             padding: 15px;
             border-radius: 8px;
             font-weight: bold;
             text-align: center;
             margin: 20px 0;
             font-size: 18px;
+            color: #000;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -151,9 +154,10 @@ with tab4:
             for skill in missing_skills:
                 pdf.cell(200, 8, txt=f"- {skill}", ln=1)
 
-            # ✅ Fix for Streamlit Cloud
-            pdf_output = pdf.output(dest='S').encode('latin1')
-            return BytesIO(pdf_output)
+            buffer = BytesIO()
+            pdf.output(buffer)
+            buffer.seek(0)
+            return buffer
 
         pdf_file = generate_pdf()
         b64 = base64.b64encode(pdf_file.read()).decode()
