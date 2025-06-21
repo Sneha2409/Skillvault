@@ -151,10 +151,9 @@ with tab4:
             for skill in missing_skills:
                 pdf.cell(200, 8, txt=f"- {skill}", ln=1)
 
-            buffer = BytesIO()
-            pdf.output(buffer)
-            buffer.seek(0)
-            return buffer
+            # ✅ Fix for Streamlit Cloud
+            pdf_output = pdf.output(dest='S').encode('latin1')
+            return BytesIO(pdf_output)
 
         pdf_file = generate_pdf()
         b64 = base64.b64encode(pdf_file.read()).decode()
