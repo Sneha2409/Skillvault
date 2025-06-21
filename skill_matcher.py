@@ -16,3 +16,4 @@ def match_skills(resume_text, role_skills):
     found = [skill for skill in role_skills if skill in resume_text.lower()]
     missing = list(set(role_skills) - set(found))
     return found, missing
+

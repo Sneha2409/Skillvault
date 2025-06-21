@@ -24,6 +24,5 @@ skill_resources = {
     "dsa": {
         "desc": "Learn data structures and algorithms for problem-solving.",
         "link": "https://youtu.be/sVxBVvlnJsM"
-    },
-    # You can add more skills here
+    }
 }
