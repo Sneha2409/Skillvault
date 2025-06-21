@@ -21,14 +21,12 @@ def load_lottie_url(url):
 # Styling
 st.markdown("""
     <style>
-        html, body, [class*="css"] {
+        body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f8f9fa;
-            color: #111;
         }
         .title-text {
             text-align: center;
-            color: #1a237e;
+            color: #2e7d32;
             font-size: 36px;
             font-weight: bold;
             margin: 20px 0;
@@ -42,24 +40,23 @@ st.markdown("""
         }
         .skill-card {
             padding: 10px;
-            background-color: #e3f2fd;
-            border-left: 5px solid #1976d2;
+            background-color: #f1f8e9;
+            border-left: 5px solid #558b2f;
             border-radius: 6px;
             margin-bottom: 8px;
         }
         .missing-skill {
-            background-color: #ffebee;
-            border-left: 5px solid #d32f2f;
+            background-color: #fff3e0;
+            border-left: 5px solid #f57c00;
         }
         .metric-card {
-            background-color: #fff3e0;
+            background-color: #e3f2fd;
             padding: 15px;
             border-radius: 8px;
             font-weight: bold;
             text-align: center;
             margin: 20px 0;
             font-size: 18px;
-            color: #000;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -154,8 +151,8 @@ with tab4:
             for skill in missing_skills:
                 pdf.cell(200, 8, txt=f"- {skill}", ln=1)
 
-            buffer = BytesIO()
-            pdf.output(buffer)
+            pdf_output = pdf.output(dest='S').encode('latin1')
+            buffer = BytesIO(pdf_output)
             buffer.seek(0)
             return buffer
 
